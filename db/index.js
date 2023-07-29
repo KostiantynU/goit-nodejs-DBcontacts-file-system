@@ -20,7 +20,7 @@ async function removeContact(contactId) {
   const indx = contactsArray.findIndex(el => el.id === contactId);
   if (indx === -1) return null;
   const [deletedContact] = contactsArray.splice(indx, 1);
-  fs.writeFile(contactsPath, JSON.stringify(contactsArray));
+  fs.writeFile(contactsPath, JSON.stringify(contactsArray, null, 2));
   return deletedContact;
 }
 
@@ -40,21 +40,5 @@ async function editContact(id, data) {
   await fs.writeFile(contactsPath, JSON.stringify(contactsArray, null, 2));
   return contactsArray[editedIndx];
 }
-
-// const readFile = async fileName => {
-//   const result = await fs.readFile(fileName, 'utf-8');
-//   return console.log('This is beginning:', result);
-// };
-
-// const addToFile = async (fileName, data) => {
-//   const result = await fs.appendFile(fileName, data);
-//   return console.log('After addToFile:', await fs.readFile(fileName, 'utf-8'));
-// };
-
-// const writeToFile = async (fileName, data) => {
-//   const result = await fs.writeFile(fileName, data);
-//   console.log('result of writeToFile:', result);
-//   return console.log('resulted file:', await fs.readFile(fileName, 'utf-8'));
-// };
 
 module.exports = { listContacts, getContactById, removeContact, addContact, editContact };
